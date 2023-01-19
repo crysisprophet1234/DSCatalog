@@ -2,6 +2,7 @@ import './ProductDetails.css';
 
 import { ReactComponent as ArrowIcon } from "assets/images/arrow.svg";
 import ProductPrice from "components/ProductPrice";
+import { Link } from 'react-router-dom';
 
 const ProductDetails = () => {
 
@@ -13,8 +14,10 @@ const ProductDetails = () => {
             <div className="product-details-card">
 
                 <div className="goback-container">
-                    <ArrowIcon />
-                    <h2>VOLTAR</h2>
+                    <Link to="/products" style={{ display: 'flex', alignItems: 'center' }}>
+                        <ArrowIcon />
+                        <h2>VOLTAR</h2>
+                    </Link>
                 </div>
 
                 <div className="row">
@@ -41,7 +44,7 @@ const ProductDetails = () => {
                                 Intel da família Core
 
                                 Conectividade ao seu lcanceSaídas de áudio com qalidade HD e conexões USB estão dipooníveis na frontal do seu CorPc
-                                
+
                                 Baixo consumo
                                 Mesmo trabalhando todos os dias, você não tera sustos na conta de energia. Fizemos tudo bem feito, para o seu CorPC seja eficiente, silencioso e
                                 econômico no consumo de energia elétrica
