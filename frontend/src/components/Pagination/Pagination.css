@@ -1,0 +1,42 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.pagination-container .pagination-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #E1E1E1;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+}
+.pagination-container .pagination-item.active {
+  background-color: #407BFF;
+}
+.pagination-container .pagination-item:hover {
+  outline: none;
+  border: 1.5px solid #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+.pagination-container > svg {
+  transform: rotate(-180deg);
+  margin-right: 24px;
+  color: #c9c8c8;
+}
+.pagination-container > svg ~ svg {
+  transform: rotate(0deg);
+  margin-left: 24px;
+  color: #407BFF;
+}
+
+/*# sourceMappingURL=Pagination.css.map */
