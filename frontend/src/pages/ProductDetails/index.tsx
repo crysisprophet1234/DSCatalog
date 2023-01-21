@@ -2,10 +2,32 @@ import './ProductDetails.css';
 
 import { ReactComponent as ArrowIcon } from "assets/images/arrow.svg";
 import ProductPrice from "components/ProductPrice";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Product } from 'types/product';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { BASE_URL } from 'utils/requests';
+
+type UrlParam = {
+
+    productId : string;
+
+}
 
 const ProductDetails = () => {
 
+    const { productId } = useParams<UrlParam>();
+
+    const [product, setProduct] = useState<Product>();
+
+    useEffect(() => {
+
+        axios.get(`${BASE_URL}/products/${productId}`)
+            .then(response => {
+                setProduct(response.data);
+            })
+
+    }, [productId]);
 
     return (
 
@@ -25,12 +47,15 @@ const ProductDetails = () => {
                     <div className="col-xl-6">
 
                         <div className="img-container">
-                            <img src="https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg" alt="Nome do produto" />
+                            <img
+                                src={product?.imgUrl}
+                                alt={product?.name}
+                            />
                         </div>
 
                         <div className="name-price-container">
-                            <h1>Nome do produto</h1>
-                            <ProductPrice price={2345.67} />
+                            <h1>{product?.name}</h1>
+                            {product ? <ProductPrice price={product?.price} /> : "price not found"}
                         </div>
 
                     </div>
@@ -39,16 +64,7 @@ const ProductDetails = () => {
 
                         <div className="description-container">
                             <h2>Descrição do Produto</h2>
-                            <p>
-                                Projetado para garantir a produtividade no seu dia a dia O desempenho que você precisa para uma jornada eficiente é garantido pelos processadores
-                                Intel da família Core
-
-                                Conectividade ao seu lcanceSaídas de áudio com qalidade HD e conexões USB estão dipooníveis na frontal do seu CorPc
-
-                                Baixo consumo
-                                Mesmo trabalhando todos os dias, você não tera sustos na conta de energia. Fizemos tudo bem feito, para o seu CorPC seja eficiente, silencioso e
-                                econômico no consumo de energia elétrica
-                            </p>
+                            <p>{product?.description}</p>
                         </div>
 
                     </div>
