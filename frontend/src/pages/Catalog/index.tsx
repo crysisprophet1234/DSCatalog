@@ -1,10 +1,39 @@
 import './Catalog.css';
 import ProductCard from 'components/ProductCard';
+import Pagination from 'components/Pagination';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
-import Pagination from 'components/Pagination';
+import { SpringPage } from 'types/vendor/spring';
+import { AxiosParams } from 'types/vendor/axios';
+
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { BASE_URL } from 'utils/requests';
+
 
 const Catalog = () => {
+
+  const [page, setPage] = useState<SpringPage<Product>>();
+
+  useEffect(() => {
+
+    const params: AxiosParams = {
+
+      method: 'GET',
+      url: `${BASE_URL}/products`,
+      params: {
+        page: 0,
+        size: 12
+      }
+
+    }
+
+    axios(params)
+      .then(response => {
+        setPage(response.data);
+      })
+
+  }, [])
 
   const product: Product = { //teste
     id: 2,

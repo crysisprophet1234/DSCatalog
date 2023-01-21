@@ -2,8 +2,9 @@ import './ProductDetails.css';
 
 import { ReactComponent as ArrowIcon } from "assets/images/arrow.svg";
 import ProductPrice from "components/ProductPrice";
-import { Link, useParams } from 'react-router-dom';
+
 import { Product } from 'types/product';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from 'utils/requests';
