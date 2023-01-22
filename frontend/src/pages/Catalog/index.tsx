@@ -52,21 +52,24 @@ const Catalog = () => {
 
       <div className="row">
 
-        {isLoading ? <CardLoader />  : (
+        {isLoading || !page ? <CardLoader /> :
 
-          page?.content.map(product => {
+          (
 
-            return (
+            page?.content.map(product => {
 
-              <div className="col-sm-6 col-lg-4 col-xl-3" key={product.id}>
-                <Link to={`products/${product.id}`}>
-                  <ProductCard product={product} />
-                </Link>
-              </div>
+              return (
 
-            );
+                <div className="col-sm-6 col-lg-4 col-xl-3" key={product.id}>
+                  <Link to={`products/${product.id}`}>
+                    <ProductCard product={product} />
+                  </Link>
+                </div>
 
-          }))
+              );
+
+            })
+          )
         }
 
       </div>
