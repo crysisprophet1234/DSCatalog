@@ -56,7 +56,7 @@ const ProductDetails = () => {
 
                         <div className="name-price-container">
                             <h1>{product?.name}</h1>
-                            {product ? <ProductPrice price={product?.price} /> : "price not found"}
+                            {product && <ProductPrice price={product?.price} />}
                         </div>
 
                     </div>
