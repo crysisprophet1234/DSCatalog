@@ -8,10 +8,12 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from 'utils/requests';
+import ProductInfoLoader from './ProductInfoLoader';
+import ProductDetailsLoader from './ProductDetailsLoader';
 
 type UrlParam = {
 
-    productId : string;
+    productId: string;
 
 }
 
@@ -21,11 +23,18 @@ const ProductDetails = () => {
 
     const [product, setProduct] = useState<Product>();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
+
+        setIsLoading(true)
 
         axios.get(`${BASE_URL}/products/${productId}`)
             .then(response => {
                 setProduct(response.data);
+            })
+            .finally(() => {
+                setIsLoading(false)
             })
 
     }, [productId]);
@@ -47,26 +56,38 @@ const ProductDetails = () => {
 
                     <div className="col-xl-6">
 
-                        <div className="img-container">
-                            <img
-                                src={product?.imgUrl}
-                                alt={product?.name}
-                            />
-                        </div>
+                        {!isLoading ? (<ProductInfoLoader />) :
 
-                        <div className="name-price-container">
-                            <h1>{product?.name}</h1>
-                            {product && <ProductPrice price={product?.price} />}
-                        </div>
+                            (
+                                <>
+                                    <div className="img-container">
+                                        <img
+                                            src={product?.imgUrl}
+                                            alt={product?.name}
+                                        />
+                                    </div>
+
+                                    <div className="name-price-container">
+                                        <h1>{product?.name}</h1>
+                                        {product && <ProductPrice price={product?.price} />}
+                                    </div>
+                                </>
+                            )
+                        }
 
                     </div>
 
                     <div className="col-xl-6">
 
-                        <div className="description-container">
-                            <h2>Descrição do Produto</h2>
-                            <p>{product?.description}</p>
-                        </div>
+                        {!isLoading ? (<ProductDetailsLoader />) :
+
+                            (
+                                <div className="description-container">
+                                    <h2>Descrição do Produto</h2>
+                                    <p>{product?.description}</p>
+                                </div>
+                            )
+                        }
 
                     </div>
 
