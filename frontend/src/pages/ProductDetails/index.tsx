@@ -56,7 +56,7 @@ const ProductDetails = () => {
 
                     <div className="col-xl-6">
 
-                        {!isLoading ? (<ProductInfoLoader />) :
+                        {isLoading ? (<ProductInfoLoader />) :
 
                             (
                                 <>
@@ -79,7 +79,7 @@ const ProductDetails = () => {
 
                     <div className="col-xl-6">
 
-                        {!isLoading ? (<ProductDetailsLoader />) :
+                        {isLoading ? (<ProductDetailsLoader />) :
 
                             (
                                 <div className="description-container">

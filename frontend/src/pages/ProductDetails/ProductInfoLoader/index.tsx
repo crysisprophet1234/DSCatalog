@@ -14,7 +14,7 @@ const height = () => {
 
     let winHeight = window.innerHeight;
 
-    return window.innerWidth >= 1200 ? winHeight / 100 * 60 : winHeight / 100 * 35;
+    return window.innerWidth >= 1200 ? winHeight / 100 * 53 : winHeight / 100 * 35;
 
 }
 
