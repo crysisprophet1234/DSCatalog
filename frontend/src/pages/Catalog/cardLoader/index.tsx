@@ -67,7 +67,7 @@ const ImageGrid = () => (
       viewBox={`0 0 ${widthMulti()} 950`}
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
-
+      speed={0.5}
       style={{ marginTop: '0px' }}
 
     >
