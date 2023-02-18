@@ -10,4 +10,4 @@ spring:
   jpa:
     open-in-view: false
   profiles:
-    active: ${APP_PROFILE:test}
+    active: ${APP_PROFILE:dev}

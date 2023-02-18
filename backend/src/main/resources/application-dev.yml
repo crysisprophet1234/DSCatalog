@@ -1,12 +1,12 @@
 spring:
   datasource:
-    password: 1234567
+    password: t5y6u7i8
     url: jdbc:postgresql://localhost:5432/dscatalog
     username: postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         jdbc:

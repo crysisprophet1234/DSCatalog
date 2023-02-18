@@ -4,6 +4,7 @@ import ButtonIcon from 'components/ButtonIcon';
 import './Login.css';
 import { useForm } from 'react-hook-form';
 import { requestBackendLogin } from 'utils/requests';
+import { useState } from 'react';
 
 type FormData = {
 
@@ -14,15 +15,19 @@ type FormData = {
 
 const Login = () => {
 
+    const [hasError, setHasError] = useState(false);
+
     const { register, handleSubmit } = useForm<FormData>();
 
     const onSubmit = (formData: FormData) => {
 
         requestBackendLogin(formData)
             .then(response => {
+                setHasError(false);
                 console.log('sucesso!', response);
             })
             .catch(err => {
+                setHasError(true);
                 console.log(err);
             })
 
@@ -33,6 +38,16 @@ const Login = () => {
         <div className="base-card login-card">
 
             <h1>LOGIN</h1>
+
+            {hasError &&
+
+                <div className="alert alert-danger" role="alert" style={{ textAlign: 'center' }}>
+                    Usuário ou senha incorretos.
+                    <br />
+                    <a href="/admin/auth/recover" className="alert-link">Esqueceu sua senha?</a>
+                </div>
+
+            }
 
             <form onSubmit={handleSubmit(onSubmit)}>
 

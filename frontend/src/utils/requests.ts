@@ -16,12 +16,9 @@ type LoginData = {
 
 export const requestBackendLogin = (loginData: LoginData) => {
 
-    const teste = 'Basic ZHNjYXRhbG9nOmRzY2F0YWxvZzEyMw=='
-
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': teste
-        //'authorization': 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+        'Authorization': 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET)
     }
 
     const data = qs.stringify({
