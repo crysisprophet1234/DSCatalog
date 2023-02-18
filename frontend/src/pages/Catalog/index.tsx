@@ -5,7 +5,6 @@ import CardLoader from './cardLoader/index';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
-import { AxiosParams } from 'types/vendor/axios';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -20,10 +19,11 @@ const Catalog = () => {
 
   useEffect(() => {
 
-    const params: AxiosParams = {
+    const params  = {
 
       method: 'GET',
-      url: `${BASE_URL}/products`,
+      url: "/products",
+      baseURL: BASE_URL,
       params: {
         page: 0,
         size: 12
