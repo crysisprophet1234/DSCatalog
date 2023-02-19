@@ -18,6 +18,15 @@
 }
 
 .card-bottom-container h6 {
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+
+}
+
+.card-bottom-container h6 {
   font-size: 18px;
   color: #263238;
 }
