@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 
-import axios from 'axios';
+import { AxiosRequestHeaders } from 'axios';
 import { useEffect, useState } from 'react';
-import { BASE_URL } from 'utils/requests';
+import { requestBackend } from 'utils/requests';
 
 
 const Catalog = () => {
@@ -19,11 +19,11 @@ const Catalog = () => {
 
   useEffect(() => {
 
-    const params  = {
+    const params = {
 
       method: 'GET',
       url: "/products",
-      baseURL: BASE_URL,
+      headers: {} as AxiosRequestHeaders,
       params: {
         page: 0,
         size: 12
@@ -33,7 +33,7 @@ const Catalog = () => {
 
     setIsLoading(true);
 
-    axios(params)
+    requestBackend(params)
       .then(response => {
         setPage(response.data);
       })

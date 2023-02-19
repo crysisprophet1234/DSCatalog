@@ -1,5 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+
+//import * as dotenv from 'dotenv'
+//dotenv.config();
 
 type LoginResponse = {
 
@@ -12,6 +15,8 @@ type LoginResponse = {
 
 }
 
+//export const BASE_URL = process.env.BASE_URL;
+
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
@@ -20,8 +25,22 @@ const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
 
 type LoginData = {
 
-    username: string,
+    username: string
     password: string
+
+}
+
+export const requestBackend = (config: AxiosRequestConfig) => {
+
+    const headers = { ...config.headers };
+
+    if (config.withCredentials) {
+
+        headers.Authorization = `Bearer ${getAuthData()?.access_token}`;
+
+    }
+
+    return axios({...config, baseURL: BASE_URL, headers});
 
 }
 
@@ -52,7 +71,14 @@ export const saveAuthData = (loginResponse: LoginResponse) => {
 
 export const getAuthData = () => {
 
+    try {
+
     const str = localStorage.getItem('authData') ?? "";
     return JSON.parse(str) as LoginResponse;
 
+    } catch (err) {
+        
+    };
+
 }
+
