@@ -26,11 +26,11 @@ const Routes = () => (
       <Redirect from="/admin/auth" to="/admin/auth/login" exact />
 
       <Route path="/admin/auth">
-          <Auth />
+        <Auth />
       </Route>
 
       <Redirect from="/admin" to="/admin/products" exact />
-      
+
       <Route path="/admin">
         <Admin />
       </Route>
@@ -40,9 +40,9 @@ const Routes = () => (
       </Route>
 
       <Route path="*"> {/*verificar rota default 404*/}
-          <p>Ops! A página não foi encontrada.</p>
-          <p>Se o erro persistir, nos informe por favor: atendimentods@dscatalog.com.br</p>
-          <p>Erro 404: O conteúdo não está mais disponível ou você digitou o endereço errado.</p>
+        <p>Ops! A página não foi encontrada.</p>
+        <p>Se o erro persistir, nos informe por favor: atendimento@dscatalog.com.br</p>
+        <p>Erro 404: O conteúdo não está mais disponível ou você digitou o endereço errado.</p>
       </Route>
 
     </Switch>
