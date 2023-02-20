@@ -26,7 +26,7 @@ enum Role {
 
 //type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
-type TokenData = {
+export type TokenData = {
 
     exp: number;
     user_name: string;
@@ -98,6 +98,12 @@ export const getAuthData = () => {
     } catch (err) {
 
     };
+
+}
+
+export const clearAuthData = () => {
+
+    localStorage.clear();
 
 }
 
