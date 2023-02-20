@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+import history from './history';
 
 //import * as dotenv from 'dotenv'
 //dotenv.config();
@@ -40,7 +41,7 @@ export const requestBackend = (config: AxiosRequestConfig) => {
 
     }
 
-    return axios({...config, baseURL: BASE_URL, headers});
+    return axios({ ...config, baseURL: BASE_URL, headers });
 
 }
 
@@ -73,12 +74,35 @@ export const getAuthData = () => {
 
     try {
 
-    const str = localStorage.getItem('authData') ?? "";
-    return JSON.parse(str) as LoginResponse;
+        const str = localStorage.getItem('authData') ?? "";
+        return JSON.parse(str) as LoginResponse;
 
     } catch (err) {
-        
+
     };
 
 }
+
+axios.interceptors.request.use(function (config) {
+    console.log('INTERCEPTOR BEFORE REQUEST')
+    return config;
+}, function (error) {
+    console.log('INTERCEPTOR REQUEST ERROR')
+    return Promise.reject(error);
+
+});
+
+axios.interceptors.response.use(function (response) {
+    console.log('INTERCEPTOR SUCESSFUL RESPONSE')
+    return response;
+}, function (error) {
+
+    const status = error.response.status;
+    
+    if (status === 401 /* status === 403 --handling do 403 exibido na página */) {
+        history.push('/admin/auth/login');
+    }
+
+    return Promise.reject(error);
+});
 
