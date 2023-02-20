@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import jwtDecode from 'jwt-decode';
 import qs from 'qs';
 import history from './history';
 
@@ -13,6 +14,23 @@ type LoginResponse = {
     scope: string;
     userFirstName: string;
     userId: number;
+
+}
+
+enum Role {
+
+    ROLE_OPERATOR = 'ROLE_OPERATOR',
+    ROLE_ADMIN = 'ROLE_ADMIN'
+
+}
+
+//type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+
+type TokenData = {
+
+    exp: number;
+    user_name: string;
+    authorities: Role[];
 
 }
 
@@ -98,7 +116,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
 
     const status = error.response.status;
-    
+
     if (status === 401 /* status === 403 --handling do 403 exibido na página */) {
         history.push('/admin/auth/login');
     }
@@ -106,3 +124,24 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
+export const getTokenData = () : TokenData | undefined => {
+
+    try {
+
+        return jwtDecode(getAuthData()!.access_token) as TokenData;
+
+    } catch (error) {
+
+        return undefined;
+
+    }
+
+}
+
+export const isAuthenticated = () : boolean | undefined => {
+
+    const tokenData = getTokenData();
+
+    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+
+}
