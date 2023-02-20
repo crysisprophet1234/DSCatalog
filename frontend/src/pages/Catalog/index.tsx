@@ -24,6 +24,7 @@ const Catalog = () => {
       method: 'GET',
       url: "/products",
       headers: {} as AxiosRequestHeaders,
+      sort: 'name',
       params: {
         page: 0,
         size: 12
