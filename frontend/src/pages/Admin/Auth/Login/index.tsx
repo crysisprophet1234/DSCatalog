@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ButtonIcon from 'components/ButtonIcon';
 
 import './Login.css';
@@ -19,6 +19,8 @@ const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
+    const history = useHistory();
+
     const onSubmit = (formData: FormData) => {
 
         requestBackendLogin(formData)
@@ -26,6 +28,8 @@ const Login = () => {
                 saveAuthData(response.data);
                 setHasError(false);
                 console.log('sucesso!', response);
+
+                history.push('/admin');
             })
             .catch(err => {
                 setHasError(true);
