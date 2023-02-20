@@ -3,8 +3,9 @@ import ButtonIcon from 'components/ButtonIcon';
 
 import './Login.css';
 import { useForm } from 'react-hook-form';
-import { requestBackendLogin, saveAuthData } from 'utils/requests';
-import { useState } from 'react';
+import { getTokenData, requestBackendLogin, saveAuthData } from 'utils/requests';
+import { useState, useContext } from 'react';
+import { AuthContext } from 'AuthContext';
 
 type FormData = {
 
@@ -14,6 +15,8 @@ type FormData = {
 }
 
 const Login = () => {
+
+    const  { setAuthContextData } = useContext(AuthContext);
 
     const [hasError, setHasError] = useState(false);
 
@@ -26,14 +29,16 @@ const Login = () => {
         requestBackendLogin(formData)
             .then(response => {
                 saveAuthData(response.data);
+                setAuthContextData({
+                    authenticated: true,
+                    tokenData: getTokenData()
+                })
                 setHasError(false);
-                console.log('sucesso!', response);
 
                 history.push('/admin');
             })
             .catch(err => {
                 setHasError(true);
-                console.log(err);
             })
 
     }
