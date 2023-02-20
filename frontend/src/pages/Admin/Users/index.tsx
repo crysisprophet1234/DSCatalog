@@ -8,6 +8,8 @@ const Users = () => {
 
     const [page, setPage] = useState<SpringPage<User>>();
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
 
         const params: AxiosRequestConfig = {
@@ -24,16 +26,27 @@ const Users = () => {
 
         requestBackend(params)
             .then((response) => {
+                setIsAdmin(true);
                 setPage(response.data);
-            });
+            })
+            .catch((err) => {
+                setIsAdmin(err.status === 403);
+            })
+
     }, []);
 
     return (
 
         <div>
-            {page?.content.map((item) => (
-                <p key={item.id}>{item.email}</p>
-            ))}
+
+            {isAdmin ?
+
+                page?.content.map((item) => (
+                    <p key={item.id}>{item.email}</p>
+                )) 
+
+                : <h1>Usuário deve ser administrador para acessar</h1>}
+                
         </div>
 
     );
