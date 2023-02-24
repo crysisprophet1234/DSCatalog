@@ -17,14 +17,16 @@ type LoginResponse = {
 
 }
 
+/*
 enum Role {
 
     ROLE_OPERATOR = 'ROLE_OPERATOR',
     ROLE_ADMIN = 'ROLE_ADMIN'
 
 }
+*/
 
-//type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
 export type TokenData = {
 
@@ -130,7 +132,7 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-export const getTokenData = () : TokenData | undefined => {
+export const getTokenData = (): TokenData | undefined => {
 
     try {
 
@@ -144,10 +146,43 @@ export const getTokenData = () : TokenData | undefined => {
 
 }
 
-export const isAuthenticated = () : boolean | undefined => {
+export const isAuthenticated = (): boolean | undefined => {
 
     const tokenData = getTokenData();
 
     return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+
+}
+
+export const hasAnyRoles = (roles: Role[]): boolean => {
+
+    if (roles.length === 0) {
+        return true;
+    }
+
+    const tokenData = getTokenData();
+
+    if (tokenData) {
+
+        roles.forEach((role) => {
+
+
+            return tokenData.authorities.includes(role);
+
+            /*
+            if (tokenData.authorities.includes(role)) {
+                //console.log('tokendata auth -> ' + tokenData.authorities)
+                //console.log('role -> ' + role)
+                //console.log('teste -> ' + tokenData.authorities + ' includes('+ role +') -> ' + tokenData.authorities.includes(role))
+                console.log('returning -> ' + tokenData.authorities.includes(role))
+                return true;
+            }
+            */
+
+        })
+
+    }
+
+    return false;
 
 }
